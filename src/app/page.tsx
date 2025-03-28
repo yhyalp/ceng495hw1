@@ -8,8 +8,8 @@ export default function Home() {
           className="dark:invert"
           src="/next.svg"
           alt="Next.js logo"
-          width={1800}
-          height={380}
+          width={180}
+          height={38}
           priority
         />
         <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
@@ -21,7 +21,7 @@ export default function Home() {
             .
           </li>
           <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
+            Save and see your changes instantlyfkgjfkgjfk.
           </li>
         </ol>
 
