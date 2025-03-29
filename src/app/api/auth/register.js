@@ -10,17 +10,21 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Username and password are required" });
     }
 
+    console.log("Request received for user:", username);
+
     try {
-      await connectDB(); // Connect to MongoDB
+      await connectDB();
 
       // Check if the user already exists
       const existingUser = await User.findOne({ username });
       if (existingUser) {
+        console.log("User already exists:", username);
         return res.status(400).json({ error: "User already exists" });
       }
 
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 12);
+      console.log("Password hashed");
 
       // Create a new user
       const user = new User({
@@ -30,10 +34,11 @@ export default async function handler(req, res) {
 
       // Save the user to the database
       await user.save();
+      console.log("User registered successfully");
 
       res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("Error during registration:", error);
       res.status(500).json({ error: "Something went wrong" });
     }
   } else {
