@@ -5,7 +5,7 @@ export default function HomePage() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("/api/items.js")
+    fetch("/api")  // ✅ Correct API endpoint
       .then((res) => res.json())
       .then((data) => setItems(data));
   }, []);
