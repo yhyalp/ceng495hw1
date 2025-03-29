@@ -1,15 +1,14 @@
-"use client";
+"use client";  // ✅ Ensure it's a Client Component
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const { data: session, status } = useSession(); // ✅ Always check `status` before using `session`
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState("");
-  const { data: session, status } = useSession(); // NextAuth session tracking
   const router = useRouter();
 
-  // Fetch items from API on mount
   useEffect(() => {
     fetch("/api/items")
       .then((res) => res.json())
