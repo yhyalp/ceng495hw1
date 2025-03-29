@@ -12,6 +12,7 @@ export default async function handler(req, res) {
       }
 
       await connectDB();
+      console.log("awaited MongoDB");
 
       const existingUser = await User.findOne({ username });
       if (existingUser) {
