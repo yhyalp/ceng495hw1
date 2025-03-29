@@ -27,8 +27,9 @@ export default function RegisterPage() {
         },
         body: JSON.stringify({ username, password }),
       });
-  
+      
       const data = await res.json();
+      console.log("awaited MongoDB2222");
   
       if (res.ok) {
         // Redirect to sign-in page after successful registration

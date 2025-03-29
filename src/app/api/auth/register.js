@@ -5,6 +5,7 @@ import User from "@/models/User";
 export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
+      console.log("awaited MongoDBdlkfşl");
       // Check if request is a valid JSON
       const { username, password } = req.body;
       if (!username || !password) {
