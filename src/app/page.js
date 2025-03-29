@@ -4,13 +4,10 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const { data: session, status } = useSession();
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState("");
-  const [user, setUser] = useState(null);
   const router = useRouter();
-
-  // Fetch user session only on the client
-  const session = typeof window !== "undefined" ? useSession() : null;
 
   useEffect(() => {
     fetch("/api/items")
@@ -18,11 +15,9 @@ export default function HomePage() {
       .then((data) => setItems(data));
   }, []);
 
-  useEffect(() => {
-    if (session?.data) {
-      setUser(session.data.user);
-    }
-  }, [session]);
+  // ✅ Log session data for debugging
+  console.log("Session:", session);
+  console.log("Status:", status);
 
   const filteredItems = category ? items.filter(item => item.category === category) : items;
 
@@ -32,9 +27,11 @@ export default function HomePage() {
       <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px", borderBottom: "1px solid #ccc" }}>
         <h2>E-Commerce App</h2>
         <div>
-          {user ? (
+          {status === "loading" ? (
+            <p>Loading...</p>
+          ) : session ? (
             <>
-              <span>Welcome, {user.username}!</span> &nbsp;
+              <span>Welcome, {session.user?.name || session.user?.email}!</span> &nbsp;
               <button onClick={() => signOut()} style={{ marginLeft: "10px" }}>Sign Out</button>
             </>
           ) : (
