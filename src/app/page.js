@@ -4,19 +4,12 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {
-  const [items, setItems] = useState([]);
-  const [category, setCategory] = useState("");
-  const { data: session, status } = useSession(); // NextAuth session tracking
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Fetch items from API on mount
   useEffect(() => {
-    fetch("/api/items")
-      .then((res) => res.json())
-      .then((data) => setItems(data));
-  }, []);
-
-  const filteredItems = category ? items.filter(item => item.category === category) : items;
+    console.log("Session:", session);
+  }, [session]);
 
   return (
     <div>
@@ -39,23 +32,6 @@ export default function HomePage() {
           )}
         </div>
       </nav>
-
-      {/* Category Filter */}
-      <h1>Welcome to the E-Commerce App</h1>
-      <select onChange={(e) => setCategory(e.target.value)}>
-        <option value="">All Categories</option>
-        <option value="Vinyls">Vinyls</option>
-        <option value="Antique Furniture">Antique Furniture</option>
-        <option value="GPS Sport Watches">GPS Sport Watches</option>
-        <option value="Running Shoes">Running Shoes</option>
-      </select>
-
-      {/* Items List */}
-      <ul>
-        {filteredItems.map((item) => (
-          <li key={item._id}>{item.name} - ${item.price}</li>
-        ))}
-      </ul>
     </div>
   );
 }
