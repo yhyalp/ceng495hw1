@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     }
 
     try {
-      await connectDB();
+      await connectDB(); // Connect to MongoDB
 
       // Check if the user already exists
       const existingUser = await User.findOne({ username });
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
       res.status(201).json({ message: "User registered successfully" });
     } catch (error) {
-      console.error(error);
+      console.error("Registration error:", error);
       res.status(500).json({ error: "Something went wrong" });
     }
   } else {
