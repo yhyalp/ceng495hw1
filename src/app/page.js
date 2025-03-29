@@ -15,7 +15,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>Welcome to the E-Commerce App</h1>
+      <h1>Welcome-- to the E-Commerce App</h1>
       <select onChange={(e) => setCategory(e.target.value)}>
         <option value="">All Categories</option>
         <option value="Vinyls">Vinyls</option>
