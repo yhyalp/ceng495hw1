@@ -7,3 +7,4 @@ export async function GET() {
   const items = await Item.find({});
   return NextResponse.json(items);
 }
+export const dynamic = "force-dynamic";
