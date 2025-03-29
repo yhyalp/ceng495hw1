@@ -11,25 +11,25 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!username || !password) {
       setError("Both username and password are required");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json",  // Ensure Content-Type is set to JSON
         },
         body: JSON.stringify({ username, password }),
       });
-
+  
       const data = await res.json();
-
+  
       if (res.ok) {
         // Redirect to sign-in page after successful registration
         router.push("/auth/signin");
