@@ -9,7 +9,7 @@ export async function GET(req, context) {
     const id = await context.params.id;
   
     try {
-      const item = await Item.findById(id).populate('reviews'); // Ensure 'reviews' is populated
+      const item = await Item.findById(id).populate('reviews');
   
       if (!item) {
         return NextResponse.json({ error: "Item not found" }, { status: 404 });

@@ -9,21 +9,14 @@ export default function HomePage() {
   const [category, setCategory] = useState("");
   const router = useRouter();
 
-  // Correctly fetch session
   const { data: session, status } = useSession();
-
-  // Debugging: Log the session to check structure
-  useEffect(() => {
-    console.log("Session Data:", session);
-  }, [session]);
-
   const user = session?.user ?? null;
 
   useEffect(() => {
     fetch("/api/items")
       .then((res) => {
         if (!res.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         return res.json();
       })
@@ -33,27 +26,40 @@ export default function HomePage() {
       });
   }, []);
 
-  const filteredItems = category ? items.filter(item => item.category === category) : items;
+  const filteredItems = category
+    ? items.filter((item) => item.category === category)
+    : items;
 
   return (
     <div>
       {/* Navigation Bar */}
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px", borderBottom: "1px solid #ccc" }}>
+      <nav
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px",
+          borderBottom: "1px solid #ccc",
+        }}
+      >
         <h2>Akcay E-Commerce App</h2>
-        <div>
+        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
           {status === "loading" ? (
             <p>Loading...</p>
           ) : user ? (
             <>
               <span>
-                Welcome,{" "}
-                <Link href="/profile">{user.username || user.email}</Link>
-              </span> &nbsp;
-              <button onClick={() => signOut()} style={{ marginLeft: "10px" }}>Sign Out</button>
+                Welcome, <Link href="/profile">{user.username || user.email}</Link>
+              </span>
+              {/* Show Admin Page Button if isAdmin is true */}
+              {user.isAdmin && (
+                <button onClick={() => router.push("/admin")}>Admin Page</button>
+              )}
+              <button onClick={() => signOut()}>Sign Out</button>
             </>
           ) : (
             <>
-              <button onClick={() => router.push("/register")}>Register</button> &nbsp;
+              <button onClick={() => router.push("/register")}>Register</button>
               <button onClick={() => signIn()}>Sign In</button>
             </>
           )}

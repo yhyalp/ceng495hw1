@@ -29,7 +29,7 @@ export async function DELETE(req, context) {
 // Rate or Review an item
 export async function POST(req, { params }) {
   await connectDB();
-  const { id } = params; // Ensure params are accessed correctly
+  const { id } = params;
   const { userId, rating, review } = await req.json();
 
   try {
@@ -38,7 +38,6 @@ export async function POST(req, { params }) {
       return NextResponse.json({ error: "Item not found" }, { status: 404 });
     }
 
-    // Ensure ratings and reviews exist as arrays
     if (!Array.isArray(item.ratings)) {
       item.ratings = [];
     }

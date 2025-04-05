@@ -37,7 +37,7 @@ export const authOptions = {
         return { 
           id: user._id, 
           username: user.username, 
-          isAdmin: user.isAdmin // Ensure this is included
+          isAdmin: user.isAdmin
         };
       }
     }),
@@ -46,17 +46,17 @@ export const authOptions = {
   callbacks: {
     jwt({ token, user }) {
       if (user) {
-        token.id = user.id;  // Ensure user id is passed
-        token.username = user.username;  // Ensure username is passed
-        token.isAdmin = user.isAdmin;  // Ensure role is passed
+        token.id = user.id;
+        token.username = user.username;
+        token.isAdmin = user.isAdmin;
       }
       return token;
     },
     session({ session, token }) {
       if (token) {
-        session.user.id = token.id;  // Assign user id
-        session.user.username = token.username;  // Assign username
-        session.user.isAdmin = token.isAdmin;  // Assign role
+        session.user.id = token.id;
+        session.user.username = token.username;
+        session.user.isAdmin = token.isAdmin;
       }
       return session;
     },
